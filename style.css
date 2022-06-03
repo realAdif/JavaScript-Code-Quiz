@@ -1,0 +1,52 @@
+:root{
+    --font:: "Lucida Console", "Courier New", monospace;
+    
+}
+
+body{
+    background-color: rgb(168, 168, 168);
+}
+
+#QustionsOptions{
+    text-align: center;
+    padding-top:200px;
+    font-size: 40px;
+    font-family: var(--font);
+}
+
+#start{
+    text-align: center;
+    padding-top:200px;  
+    font-family: var(--font);
+}
+#startRules{
+    font-size: 20px;
+}
+#startButton{
+   font-size: 24px;
+   margin-top: 20px;
+   border: none;
+   padding: 14px 40px;
+   display: inline;
+}
+#startButton:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+#timer,#counter{
+    position: absolute;
+    right: 0px;
+    font-size: 35px;
+    font-family: var(--font);
+    padding-right: 5px;
+}
+#counter{  
+    padding-right: 40px;
+}
+  
+
+#highscores{
+    font-size: 35px;
+    position: absolute;
+}
