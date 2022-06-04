@@ -4,15 +4,27 @@
 }
 
 body{
-    background-color: rgb(168, 168, 168);
+    background-color:rgb(242, 242, 242);
 }
 
-#QustionsOptions{
+#qustionsOptions{
     text-align: center;
     padding-top:200px;
     font-size: 40px;
     font-family: var(--font);
 }
+
+#options{
+    background-color:rgb(230, 230, 230);
+    border: none;
+    color: black;
+    padding: 20px 70px;
+    text-align: center;
+    font-size: 24px; 
+    margin: 40px;
+}
+
+
 
 #start{
     text-align: center;
@@ -22,14 +34,15 @@ body{
 #startRules{
     font-size: 20px;
 }
-#startButton{
+.start-button{
+    background-color:rgb(230, 230, 230);
    font-size: 24px;
    margin-top: 20px;
    border: none;
    padding: 14px 40px;
    display: inline;
 }
-#startButton:hover{
+.start-button:hover,#options:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
@@ -42,9 +55,11 @@ body{
     padding-right: 5px;
 }
 #counter{  
-    padding-right: 40px;
+    padding-right: 60px;
 }
-  
+#timer{
+    padding-right: 10px;
+}  
 
 #highscores{
     font-size: 35px;
