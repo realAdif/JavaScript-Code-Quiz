@@ -7,14 +7,14 @@ body{
     background-color:rgb(242, 242, 242);
 }
 
-#qustionsOptions{
+#questionsOptions{
     text-align: center;
     padding-top:200px;
     font-size: 40px;
     font-family: var(--font);
 }
 
-#options{
+.options{
     background-color:rgb(230, 230, 230);
     border: none;
     color: black;
@@ -26,23 +26,32 @@ body{
 
 
 
-#start{
+#start,#Highscore-page{
     text-align: center;
     padding-top:200px;  
     font-family: var(--font);
 }
+
+#Highscore-title{
+    font-size: 50px;
+}
+
+#score,#time-left-score{
+    font-size: 30px;
+}
+
 #startRules{
     font-size: 20px;
 }
 .start-button{
     background-color:rgb(230, 230, 230);
-   font-size: 24px;
-   margin-top: 20px;
-   border: none;
-   padding: 14px 40px;
-   display: inline;
+    font-size: 24px;
+    margin-top: 20px;
+    border: none;
+    padding: 14px 40px;
+    display: inline;
 }
-.start-button:hover,#options:hover{
+.start-button:hover,.options:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
@@ -54,6 +63,15 @@ body{
     font-family: var(--font);
     padding-right: 5px;
 }
+#timerAdded{
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    font-size: 35px;
+    font-family: var(--font);
+    padding-right: 5px;
+}
+
 #counter{  
     padding-right: 60px;
 }
@@ -61,7 +79,3 @@ body{
     padding-right: 10px;
 }  
 
-#highscores{
-    font-size: 35px;
-    position: absolute;
-}
