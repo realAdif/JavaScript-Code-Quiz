@@ -42,6 +42,7 @@ body{
 
 #startRules{
     font-size: 20px;
+    
 }
 .start-button{
     background-color:rgb(230, 230, 230);
@@ -50,6 +51,7 @@ body{
     border: none;
     padding: 14px 40px;
     display: inline;
+    
 }
 .start-button:hover,.options:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
@@ -78,4 +80,18 @@ body{
 #timer{
     padding-right: 10px;
 }  
+#Hightscore-table{
+    margin-left: auto;
+    margin-right: auto; 
+    border: 1px solid black;
+    margin-bottom: 10px;
+    height: 50px;
+   
+}
 
+#highscore-2{
+    border-left: 1px solid black;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

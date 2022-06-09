@@ -1,6 +1,7 @@
 var startButton = document.querySelector('.start-button');
 var timerEl = document.querySelector('#timer');
 var startPageEl = document.querySelector('#start');
+var counterEl = document.querySelector('#counter');
 var questionPageEl = document.querySelector("#questionsOptions");
 var questionsEl = document.querySelector("#question");
 var timeAddedEl = document.querySelector("#timerAdded");
@@ -9,7 +10,14 @@ var optionEl = document.querySelector("#options");
 var highscorePageEl = document.querySelector("#Highscore-page");
 var timerLeftScoreEl = document.querySelector("#time-left-score");
 
-console.log(timerLeftScoreEl);
+var highscoreNameEl = document.querySelector(".highscore-name");
+var highscoreScoreEl = document.querySelector(".highscore-score");
+var highscoreTimeEl = document.querySelector(".highscore-time");
+var nameInput = document.querySelector('#nameinput');
+
+
+
+
 var questionsArrays = [
     {
         title: "Arrays in JavaScript can be used to store:",
@@ -22,25 +30,27 @@ var questionsArrays = [
         answer: 1
     },
     {
+        title: "If we declare a variable, let test = 1, then later, reassign, stating test = 2, what will happen? ",
+        options: ['test will equal 1','JavaScript Will Have a Raise a Error','test will equal Undfined', 'All of Above'],
+        answer: 0
+    },
+    {
         title: "What is Boonlen?",
         options: ['String','Numbers','True or False', 'All of Above'],
         answer: 2
     },
-    {
-        title: "What is a String?",
-        options: ['String','Boolen','Numbers', 'All of Above'],
-        answer: 0
-    }
+    
 ];
 
 highscorePageEl.style.display ='none';
+
 var highscoreObject = {
     name: "Name",
     score: 1,
     time: 0
 };
 var scoreNumber = highscoreObject.score;
-var timerLeftScore = highscoreObject.time; 
+const timerLeftScore = highscoreObject.time; 
 
 // the start up of the page:
 var secondsLeft = 20;
@@ -49,11 +59,19 @@ pageMode();
 onClick();
 highscorePagesNumber();
 
-// on click event 
+
+
+// on click event
 function onClick(){
     startButton.addEventListener("click", function(){
-        startPageMode = false;
-        init();
+        if(nameInput.value == ""){
+            alert("Enter your name")
+        }else{
+            startPageMode = false;
+            init();
+            console.log(nameInput.value);
+        }
+        
            
     });
 }
@@ -65,10 +83,9 @@ var currentIndex  = 0;
 
 function showQuestion(){   
     questionsEl.textContent = questionsArrays[currentIndex].title;
-    questionsArrays[currentIndex].options;
-    
+    questionsArrays[currentIndex].options;  
     // console.log(currentOptions);
-  optionEl.innerHTML = "";
+    optionEl.innerHTML = "";
     questionsArrays[currentIndex].options.forEach(function(option, index){
         var buttonEl = document.createElement("button");
         buttonEl.setAttribute('class','options');
@@ -76,44 +93,41 @@ function showQuestion(){
         buttonEl.textContent = option;
         optionEl.append(buttonEl);      
     })
+    timeAddedEl.innerHTML = "";
     
-
-}
-
-
-timeAddedEl.innerHTML = "";
-optionEl.addEventListener('click', function(event){
-    // console.log(event.target.id);
+    optionEl.addEventListener('click', function(event){
     var buttonIdex = event.target.id;
-    if(currentIndex < 3){
+
+    if(currentIndex < 4){
         if(buttonIdex == questionsArrays[currentIndex].answer){
             secondsLeft = secondsLeft + 10;
-            timeAddedEl.innerHTML = "+10";
+            timeAddedEl.innerHTML = "+10";           
             scoreNumber++
             console.log(scoreNumber);
             timeAddedTimer();
             currentIndex++;
-            showQuestion();
-            
+            showQuestion();           
         }else{
             secondsLeft = secondsLeft - 5;
             timeAddedEl.innerHTML = "-5";
             timeAddedTimer();
         }
     }else{
-        highscorePageEl.style.display ='block';
-        questionPageEl.style.display = 'none';
-        timerLeftScore = secondsLeft;
-        console.log(timerLeftScore);
-        highscorePagesNumber();
+        endGame();
     }   
 });
+    
 
 
 
-//console.log(highscoreEl.innerHTML = " Score Number: "+ scoreNumber)
-//console.log( timerLeftScoreEl.innerHTML = "Time: "; +timerLeftScore)
+}
+
+
+
+
+
 function highscorePagesNumber(){
+    const timerLeftScore = secondsLeft;
     highscoreEl.innerHTML = " Score Number: "+ scoreNumber;
     timerLeftScoreEl.innerHTML = "Time: " +timerLeftScore;
 }
@@ -124,15 +138,34 @@ function timeAddedTimer(){
     },500)  
 }
 
+
 // timer function
 function timer(){
     var timerLeft = setInterval(function(){
         secondsLeft--;
-        timerEl.innerHTML = secondsLeft
+        if(secondsLeft == 1){           
+            endGame();
+        }
+        timerEl.innerHTML = secondsLeft;
 
     },1000)
 }
 
+function endGame(){
+    const timerLeftScore = secondsLeft;
+    highscorePageEl.style.display ='block';
+    questionPageEl.style.display = 'none';
+    timerEl.style.display = 'none';
+    counterEl.style.display = 'none';
+
+    highscoreNameEl.innerHTML = nameInput.value;
+    highscoreScoreEl.innerHTML = scoreNumber;
+    highscoreTimeEl.innerHTML = timerLeftScore;
+
+    
+    console.log(timerLeftScore);
+    highscorePagesNumber();
+}
 
 // page mode function
 function pageMode(){
