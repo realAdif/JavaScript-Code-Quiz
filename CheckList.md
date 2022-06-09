@@ -12,7 +12,7 @@
 
 - then make the question random 
 
-- eveytime when the user gets the question wrong then change the color of thr button 
+- eveytime when the user gets the question wrong then change the color of thr button (not Working)
 
 - make the code more cleaner to read 
 

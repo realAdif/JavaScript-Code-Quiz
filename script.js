@@ -42,22 +42,28 @@ var questionsArrays = [
     
 ];
 
-highscorePageEl.style.display ='none';
 
-var highscoreObject = {
-    name: "Name",
-    score: 1,
-    time: 0
-};
-var scoreNumber = highscoreObject.score;
-const timerLeftScore = highscoreObject.time; 
+
 
 // the start up of the page:
+highscorePageEl.style.display ='none';
 var secondsLeft = 20;
 var startPageMode = true;
 pageMode();
 onClick();
-highscorePagesNumber();
+//highscorePagesNumber();
+
+var highscoreObject = {
+    name: "Name",
+    score: 0,
+    time: 0
+};
+
+var scoreNumber = highscoreObject.score;
+
+
+
+
 
 
 
@@ -69,7 +75,7 @@ function onClick(){
         }else{
             startPageMode = false;
             init();
-            console.log(nameInput.value);
+            
         }
         
            
@@ -79,12 +85,11 @@ function onClick(){
 // All the Questions
 
 var currentIndex  = 0;
-
+timeAddedEl.innerHTML = "";
 
 function showQuestion(){   
     questionsEl.textContent = questionsArrays[currentIndex].title;
     questionsArrays[currentIndex].options;  
-    // console.log(currentOptions);
     optionEl.innerHTML = "";
     questionsArrays[currentIndex].options.forEach(function(option, index){
         var buttonEl = document.createElement("button");
@@ -93,32 +98,30 @@ function showQuestion(){
         buttonEl.textContent = option;
         optionEl.append(buttonEl);      
     })
-    timeAddedEl.innerHTML = "";
-    
     optionEl.addEventListener('click', function(event){
-    var buttonIdex = event.target.id;
-
-    if(currentIndex < 4){
-        if(buttonIdex == questionsArrays[currentIndex].answer){
-            secondsLeft = secondsLeft + 10;
-            timeAddedEl.innerHTML = "+10";           
-            scoreNumber++
-            console.log(scoreNumber);
-            timeAddedTimer();
-            currentIndex++;
-            showQuestion();           
+        var buttonIdex = event.target.id;
+        if( currentIndex < 4){
+            if(buttonIdex == questionsArrays[currentIndex].answer){
+                secondsLeft = secondsLeft + 10;
+                timeAddedEl.innerHTML = "+10";           
+                scoreNumber++
+                console.log(scoreNumber);
+                timeAddedTimer();
+                currentIndex++;
+                showQuestion();           
+            }else{
+                secondsLeft = secondsLeft - 5;
+                timeAddedEl.innerHTML = "-5";
+                timeAddedTimer();
+            }
         }else{
-            secondsLeft = secondsLeft - 5;
-            timeAddedEl.innerHTML = "-5";
-            timeAddedTimer();
-        }
-    }else{
-        endGame();
-    }   
-});
+            highscorePagesNumber();
+            endGame();
+        }   
+    });
+    
+   
 }
-
-
 
 
 
@@ -126,7 +129,22 @@ function highscorePagesNumber(){
     const timerLeftScore = secondsLeft;
     highscoreEl.innerHTML = " Score Number: "+ scoreNumber;
     timerLeftScoreEl.innerHTML = "Time: " +timerLeftScore;
+
+    highscorePageEl.style.display ='block';
+    questionPageEl.style.display = 'none';
+    timerEl.style.display = 'none';
+    counterEl.style.display = 'none';
+
+    
 }
+
+function endGame(){
+    const timerLeftScore = secondsLeft;
+    highscoreNameEl.innerHTML = nameInput.value;
+    highscoreScoreEl.innerHTML = scoreNumber;
+    highscoreTimeEl.innerHTML = timerLeftScore;
+}
+
 
 function timeAddedTimer(){  
     setInterval(function(){
@@ -139,29 +157,20 @@ function timeAddedTimer(){
 function timer(){
     var timerLeft = setInterval(function(){
         secondsLeft--;
-        if(secondsLeft == 1){           
-            endGame();
+        if(secondsLeft < 1){
+            highscoreNameEl.innerHTML = nameInput.value; 
+            highscoreTimeEl.innerHTML = timerLeftScore;         
+            highscorePageEl.style.display ='block';
+            questionPageEl.style.display = 'none';
+            timerEl.style.display = 'none';
+            counterEl.style.display = 'none';
         }
         timerEl.innerHTML = secondsLeft;
 
     },1000)
 }
 
-function endGame(){
-    const timerLeftScore = secondsLeft;
-    highscorePageEl.style.display ='block';
-    questionPageEl.style.display = 'none';
-    timerEl.style.display = 'none';
-    counterEl.style.display = 'none';
 
-    highscoreNameEl.innerHTML = nameInput.value;
-    highscoreScoreEl.innerHTML = scoreNumber;
-    highscoreTimeEl.innerHTML = timerLeftScore;
-
-    
-    console.log(timerLeftScore);
-    highscorePagesNumber();
-}
 
 // page mode function
 function pageMode(){
