@@ -9,17 +9,12 @@ var highscoreEl = document.querySelector("#score");
 var optionEl = document.querySelector("#options");
 var highscorePageEl = document.querySelector("#Highscore-page");
 var timerLeftScoreEl = document.querySelector("#time-left-score");
-
 var highscoreNameEl = document.querySelector(".highscore-name");
 var highscoreScoreEl = document.querySelector(".highscore-score");
 var highscoreTimeEl = document.querySelector(".highscore-time");
 var nameInput = document.querySelector('#nameinput');
-
+var tableHighscore =document.querySelector("#Hightscore-table");
 var PlayAgainEl = document.querySelector(".start-button");
-
-
-console.log(PlayAgainEl);
-
 
 var questionsArrays = [
     {
@@ -29,7 +24,7 @@ var questionsArrays = [
     },
     {
         title: "How do you wirte a Function:",
-        options: ['Function()','function nameFuncrion','functions', 'All of Above'],
+        options: ['Function()','function nameFunction(){}','functions', 'All of Above'],
         answer: 1
     },
     {
@@ -45,17 +40,12 @@ var questionsArrays = [
     
 ];
 
-
-
-
 // the start up of the page:
 highscorePageEl.style.display ='none';
 var secondsLeft = 20;
 var secondsTimer = 20;
 var startPageMode = true;
 pageMode();
-
-//highscorePagesNumber();
 
 var highscoreObject = {
     name: "Name",
@@ -94,10 +84,11 @@ var scoreNumber = highscoreObject.score;
         timerEl.innerHTML = secondsLeft; 
         timerEl.style.display = 'block';
         counterEl.style.display = 'block';
+        highscorePageEl.style.display ='none';
 
         init();
 
-    })
+    });   
 
 // All the Questions
 
@@ -163,9 +154,9 @@ function highscorePagesNumber(){
 
 function endGame(secondsLeft,scoreNumber){
     
-    highscoreNameEl.innerHTML = nameInput.value;
-    highscoreScoreEl.innerHTML = scoreNumber;
-    highscoreTimeEl.innerHTML = secondsLeft;
+    // highscoreNameEl.innerHTML = nameInput.value;
+    // highscoreScoreEl.innerHTML = scoreNumber;
+    // highscoreTimeEl.innerHTML = secondsLeft;
     
     // window.localStorage.setItem("Name", nameInput.value);
     // window.localStorage.setItem("Score", scoreNumber);
@@ -178,11 +169,31 @@ function endGame(secondsLeft,scoreNumber){
     localStorage.setItem("highscores", JSON.stringify(highscores));
     clearInterval(timerLeft);
     //Loop thur highscore 
+    tableHighscore.innerHTML = "";
+    for(var i = 0;i < highscores.length;i++){
         //make a tr El
+        var tr = document.createElement("tr");
         //make a td El
+        var tdName = document.createElement("td");
+        var tdScore = document.createElement("td");
+        var tdTime = document.createElement("td");
         //write the name,time,score in the td El
+        tdName.append(highscores[i].name);
+        tdName.setAttribute("class","highscore-2");
+        tdScore.append(highscores[i].score);
+        tdScore.setAttribute("class","highscore-2");
+        tdTime.append(highscores[i].time);
+        tdTime.setAttribute("class","highscore-2");
+        // tdTime.classList.add("hightscore-2");
         //append in td into tr 
+        tr.append(tdName);
+        tr.append(tdScore);
+        tr.append(tdTime);
         //append tr into table
+        //tdName.append(tableHighscore);
+        tableHighscore.append(tr);
+    }
+        
 
 
 }
@@ -215,8 +226,6 @@ function timer(){
     },1000)
    
 }
-
-
 
 // page mode function
 function pageMode(){
