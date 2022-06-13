@@ -227,6 +227,7 @@ function timer(){
    
 }
 
+
 // page mode function
 function pageMode(){
 
