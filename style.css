@@ -44,7 +44,7 @@ body{
     font-size: 20px;
     
 }
-.start-button{
+.start-button-page,.start-button{
     background-color:rgb(230, 230, 230);
     font-size: 24px;
     margin-top: 20px;
@@ -53,7 +53,7 @@ body{
     display: inline;
     
 }
-.start-button:hover,.options:hover{
+.start-button-page:hover,.options:hover,.start-button:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 

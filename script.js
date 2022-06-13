@@ -1,4 +1,4 @@
-var startButton = document.querySelector('.start-button');
+var startButton = document.querySelector('.start-button-page');
 var timerEl = document.querySelector('#timer');
 var startPageEl = document.querySelector('#start');
 var counterEl = document.querySelector('#counter');
@@ -15,7 +15,10 @@ var highscoreScoreEl = document.querySelector(".highscore-score");
 var highscoreTimeEl = document.querySelector(".highscore-time");
 var nameInput = document.querySelector('#nameinput');
 
+var PlayAgainEl = document.querySelector(".start-button");
 
+
+console.log(PlayAgainEl);
 
 
 var questionsArrays = [
@@ -48,9 +51,10 @@ var questionsArrays = [
 // the start up of the page:
 highscorePageEl.style.display ='none';
 var secondsLeft = 20;
+var secondsTimer = 20;
 var startPageMode = true;
 pageMode();
-onClick();
+
 //highscorePagesNumber();
 
 var highscoreObject = {
@@ -59,28 +63,41 @@ var highscoreObject = {
     time: 0
 };
 
+var highscores = JSON.parse(localStorage.getItem("highscores"));
+if(highscores == null){
+    highscores = []
+}
+console.log(highscores);
 var scoreNumber = highscoreObject.score;
 
-
-
-
-
-
-
 // on click event
-function onClick(){
+
     startButton.addEventListener("click", function(){
         if(nameInput.value == ""){
-            alert("Enter your name")
+            alert("Enter your name");
         }else{
             startPageMode = false;
-            init();
-            
-        }
-        
-           
+            init();   
+        }    
     });
-}
+
+    PlayAgainEl.addEventListener("click", function(){
+        timerLeft = 20;
+        currentIndex = 0;
+        scoreNumber = 0;
+        secondsLeft = 20;
+        highscoreObject = {
+            name: "Name",
+            score: 0,
+            time: 0
+        };
+        timerEl.innerHTML = secondsLeft; 
+        timerEl.style.display = 'block';
+        counterEl.style.display = 'block';
+
+        init();
+
+    })
 
 // All the Questions
 
@@ -98,30 +115,36 @@ function showQuestion(){
         buttonEl.textContent = option;
         optionEl.append(buttonEl);      
     })
-    optionEl.addEventListener('click', function(event){
-        var buttonIdex = event.target.id;
-        if( currentIndex < 4){
-            if(buttonIdex == questionsArrays[currentIndex].answer){
-                secondsLeft = secondsLeft + 10;
-                timeAddedEl.innerHTML = "+10";           
-                scoreNumber++
-                console.log(scoreNumber);
-                timeAddedTimer();
-                currentIndex++;
-                showQuestion();           
-            }else{
-                secondsLeft = secondsLeft - 5;
-                timeAddedEl.innerHTML = "-5";
-                timeAddedTimer();
-            }
+
+}
+
+optionEl.addEventListener('click', function(event){
+    currentIndex++;
+    console.log( "currentIndex1: ", currentIndex);
+    var buttonIdex = event.target.id;
+    
+        console.log( "currentIndex2: ", currentIndex);
+        if(buttonIdex == questionsArrays[currentIndex -1].answer){
+            secondsLeft = secondsLeft + 10;
+            timeAddedEl.innerHTML = "+10";           
+            scoreNumber++;
+            console.log(scoreNumber);
+            timeAddedTimer();
+                   
+        }else{
+            secondsLeft = secondsLeft - 5;
+            timeAddedEl.innerHTML = "-5";
+            timeAddedTimer();
+        }
+        if (currentIndex < questionsArrays.length){
+            showQuestion();
+            
         }else{
             highscorePagesNumber();
-            endGame();
-        }   
-    });
-    
-   
-}
+            endGame(secondsLeft,scoreNumber);
+        }
+     
+});
 
 
 
@@ -138,12 +161,32 @@ function highscorePagesNumber(){
     
 }
 
-function endGame(){
-    const timerLeftScore = secondsLeft;
+function endGame(secondsLeft,scoreNumber){
+    
     highscoreNameEl.innerHTML = nameInput.value;
     highscoreScoreEl.innerHTML = scoreNumber;
-    highscoreTimeEl.innerHTML = timerLeftScore;
+    highscoreTimeEl.innerHTML = secondsLeft;
+    
+    // window.localStorage.setItem("Name", nameInput.value);
+    // window.localStorage.setItem("Score", scoreNumber);
+    // window.localStorage.setItem("Time", secondsLeft);
+
+    highscoreObject.name = nameInput.value;
+    highscoreObject.score = scoreNumber;
+    highscoreObject.time = secondsLeft;
+    highscores.push(highscoreObject);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+    clearInterval(timerLeft);
+    //Loop thur highscore 
+        //make a tr El
+        //make a td El
+        //write the name,time,score in the td El
+        //append in td into tr 
+        //append tr into table
+
+
 }
+
 
 
 function timeAddedTimer(){  
@@ -152,22 +195,25 @@ function timeAddedTimer(){
     },500)  
 }
 
-
+var timerLeft;
 // timer function
 function timer(){
-    var timerLeft = setInterval(function(){
+    timerLeft = setInterval(function(){
         secondsLeft--;
-        if(secondsLeft < 1){
+        secondsTimer--;
+        if(secondsTimer < 1){
             highscoreNameEl.innerHTML = nameInput.value; 
             highscoreTimeEl.innerHTML = timerLeftScore;         
             highscorePageEl.style.display ='block';
             questionPageEl.style.display = 'none';
             timerEl.style.display = 'none';
             counterEl.style.display = 'none';
+            endGame(secondsLeft,scoreNumber);
         }
         timerEl.innerHTML = secondsLeft;
 
     },1000)
+   
 }
 
 
