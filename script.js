@@ -147,21 +147,10 @@ function highscorePagesNumber(){
     highscorePageEl.style.display ='block';
     questionPageEl.style.display = 'none';
     timerEl.style.display = 'none';
-    counterEl.style.display = 'none';
-
-    
+    counterEl.style.display = 'none'; 
 }
 
 function endGame(secondsLeft,scoreNumber){
-    
-    // highscoreNameEl.innerHTML = nameInput.value;
-    // highscoreScoreEl.innerHTML = scoreNumber;
-    // highscoreTimeEl.innerHTML = secondsLeft;
-    
-    // window.localStorage.setItem("Name", nameInput.value);
-    // window.localStorage.setItem("Score", scoreNumber);
-    // window.localStorage.setItem("Time", secondsLeft);
-
     highscoreObject.name = nameInput.value;
     highscoreObject.score = scoreNumber;
     highscoreObject.time = secondsLeft;
@@ -177,20 +166,15 @@ function endGame(secondsLeft,scoreNumber){
         var tdName = document.createElement("td");
         var tdScore = document.createElement("td");
         var tdTime = document.createElement("td");
-        //write the name,time,score in the td El
         tdName.append(highscores[i].name);
         tdName.setAttribute("class","highscore-2");
         tdScore.append(highscores[i].score);
         tdScore.setAttribute("class","highscore-2");
         tdTime.append(highscores[i].time);
-        tdTime.setAttribute("class","highscore-2");
-        // tdTime.classList.add("hightscore-2");
-        //append in td into tr 
+        tdTime.setAttribute("class","highscore-2"); 
         tr.append(tdName);
         tr.append(tdScore);
         tr.append(tdTime);
-        //append tr into table
-        //tdName.append(tableHighscore);
         tableHighscore.append(tr);
     }
         
@@ -212,9 +196,10 @@ function timer(){
     timerLeft = setInterval(function(){
         secondsLeft--;
         secondsTimer--;
-        if(secondsTimer < 1){
-            highscoreNameEl.innerHTML = nameInput.value; 
-            highscoreTimeEl.innerHTML = timerLeftScore;         
+        timerEl.innerHTML = secondsLeft;
+        if(secondsLeft < 1){
+            // highscoreNameEl.innerHTML = nameInput.value; 
+            // highscoreTimeEl.innerHTML = timerLeftScore;         
             highscorePageEl.style.display ='block';
             questionPageEl.style.display = 'none';
             timerEl.style.display = 'none';
@@ -222,8 +207,8 @@ function timer(){
             endGame(secondsLeft,scoreNumber);
         }
         timerEl.innerHTML = secondsLeft;
-
     },1000)
+   
    
 }
 
